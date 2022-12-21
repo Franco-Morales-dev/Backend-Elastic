@@ -1,18 +1,18 @@
 import { getElasticInfo } from "../services/elasticSearch";
 
-const elasticSearchInfo = async (req, res ) => {
-    let info;
+const elasticSearchInfo = async (_req, res ) => {
+  let info;
 
-    try {
-        info = await getElasticInfo();
+  try {
+    info = await getElasticInfo();
 
-        return res.json({
-            info
-        });
-    } catch (error) {
-        return res.status(500).json({ error });
-    }
-}
+    return res.json({
+      info
+    });
+  } catch (error) {
+    return res.status(500).json({ error });
+  }
+};
 
 
-export { elasticSearchInfo }
+export { elasticSearchInfo };

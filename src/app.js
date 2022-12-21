@@ -20,8 +20,8 @@ app.use( express.urlencoded({ extended: false }) );
 
 app.get("/", (req, res) => res.json({ message: "Backend API REST" }));
 
-app.use("/api/v1/people", peopleRouter)
-app.use("/api/v1/elastic", elasticRouter)
+app.use("/api/v1/people", peopleRouter);
+app.use("/api/v1/elastic", elasticRouter);
 
 
 export default app;

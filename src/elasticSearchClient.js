@@ -27,28 +27,28 @@ import { Client } from "@elastic/elasticsearch";
 // singleton? is necesary ?
 // https://www.dofactory.com/javascript/design-patterns/singleton
 const getElasticClient = (
-    () => {
-        let instance;
+  () => {
+    let instance;
 
-        function createInstance () {
-            const client = new Client({
-                node: "http://localhost:9200",
-                maxRetries: 5,
-                requestTimeout: 60000
-            });
+    function createInstance () {
+      const client = new Client({
+        node: "http://localhost:9200",
+        maxRetries: 5,
+        requestTimeout: 60000
+      });
 
-            return client
-        }
-        
-        return {
-            getInstance : () => {
-                if(!instance) instance = createInstance()
-
-                return instance;
-            }
-        }
+      return client;
     }
+        
+    return {
+      getInstance : () => {
+        if(!instance) instance = createInstance();
+
+        return instance;
+      }
+    };
+  }
 )();
 
 
-export { getElasticClient }
+export { getElasticClient };
