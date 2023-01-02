@@ -2,12 +2,12 @@
   "name": "back-elastic",
   "version": "1.0.0",
   "description": "backend API with Elastic Search",
-  "main": "src/index.js",
+  "main": "src/server.js",
   "scripts": {
     "build": "babel src --out-dir dist",
-    "dev": "nodemon --exec babel-node src/index",
+    "dev": "nodemon --exec babel-node src/server",
     "lint": "esLint .",
-    "start": "node dist/src/index",
+    "start": "node dist/src/server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

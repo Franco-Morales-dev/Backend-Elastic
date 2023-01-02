@@ -26,7 +26,7 @@ import { Client } from "@elastic/elasticsearch";
 
 // singleton? is necesary ?
 // https://www.dofactory.com/javascript/design-patterns/singleton
-const getElasticClient = (
+const elasticClient = (
   () => {
     let instance;
 
@@ -51,4 +51,4 @@ const getElasticClient = (
 )();
 
 
-export { getElasticClient };
+export default elasticClient;
