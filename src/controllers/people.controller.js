@@ -77,10 +77,13 @@ const deleteOneByIdFromElastic = async (req, res) => {
 };
 
 const searchInElastic = async (req, res) => {
-  let { q } = req.query;
-    
+  let { q, company } = req.query;
+  let filters = {
+    company
+  };
+  
   try {
-    const results = await elasticSearch.doc.searchIn(indexName.TEST_PEOPLE, q);
+    const results = await elasticSearch.doc.searchIn(indexName.TEST_PEOPLE, q, filters);
 
     return res.json({
       message: "searched results",

@@ -1,14 +1,17 @@
 import elasticClient from "../../elasticSearchClient";
 import { indexName } from "../../const/const";
+import dataJSON from "../../data/data_test.json";
 
 const createDefaultIndices = async () => {
+  // await deleteOneIndex(indexName.TEST_PEOPLE);
+
   const esClient =  await elasticClient.getInstance();
   
   const indices = await getAllIndex();
 
   if(indices.length) return;
 
-  return await esClient.indices.create({
+  await esClient.indices.create({
     index: indexName.TEST_PEOPLE,
     settings: {
       analysis : {
@@ -39,7 +42,7 @@ const createDefaultIndices = async () => {
         company: {
           type: "text",
           index: true,
-          analyzer: "whitespace"
+          analyzer: "keyword"
         },
         desc: {
           type: "text",
@@ -53,6 +56,8 @@ const createDefaultIndices = async () => {
       }
     }
   });
+
+  await bulkInsertDocs();
 };
 
 const deleteOneIndex = async (indexName) => {
@@ -63,11 +68,37 @@ const deleteOneIndex = async (indexName) => {
   });
 };
 
-const getAllIndex = async ( ) => {
+const getAllIndex = async () => {
   const esClient =  await elasticClient.getInstance();
 
   return await esClient.cat.indices({
     format: "json"
+  });
+};
+
+const bulkInsertDocs = async () => {
+  const esClient = await elasticClient.getInstance();
+
+  const actions = [];
+
+  for (const people of dataJSON) {
+    actions.push({
+      index: {
+        _index: indexName.TEST_PEOPLE
+      }
+    });
+
+    actions.push({
+      fullname: people.fullname,
+      email: people.email,
+      company: people.job.company,
+      desc: people.description,
+      adress: people.location.address
+    });
+  }
+  return esClient.bulk({
+    index: indexName.TEST_PEOPLE,
+    operations: actions
   });
 };
 
